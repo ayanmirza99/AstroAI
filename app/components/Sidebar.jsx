@@ -11,27 +11,27 @@ const Sidebar = () => {
   return (
     <>
       {mobileScreen ? (
-        <div className={`absolute h-screen flex flex-col w-[300px] top-0 gap-8 ${expand ? "left-0" : "left-[-300px]"} px-4 pt-24 border-r transition-all ease-in duration-200 bg-[#f0f4f9]`}>
-          <div className={`p-4 bg-[#dde3ea] rounded-full flex gap-4 items-center text-sm font-semibold cursor-pointer transition-all`}>
+        <div className={`absolute h-screen flex flex-col w-[300px] top-0 gap-8 ${expand ? "left-0" : "left-[-300px]"} px-4 pt-24 border-r dark:border-[#1e1f20] transition-all ease-in duration-200 bg-[#f0f4f9] dark:bg-[#1e1f20]`}>
+          <div className={`p-4 bg-[#dde3ea] dark:bg-[#393b3d] rounded-full flex gap-4 items-center text-sm font-semibold cursor-pointer transition-all`}>
             <Plus />New Chat
           </div>
           <section className={`h-[60%] p-4`}>
           <h1 className='text-lg'>Recent Chats</h1>
           <div className='overflow-y-auto'></div>
           </section>
-          <section className={`relative flex items-center text-xl gap-4 p-4 rounded-lg transition-all ${clicked ? "" : "hover:bg-slate-200"}`} onClick={() => setClicked(!clicked)}>
+          <section className={`relative flex items-center text-xl gap-4 p-4 rounded-lg transition-all ${clicked ? "" : "hover:bg-slate-200 dark:hover:bg-[#393b3d]"}`} onClick={() => setClicked(!clicked)}>
             <Settings />Settings
             <SettingBox clicked={clicked} />
           </section>
         </div>
       ) : (
-        <div className={`h-screen flex flex-col gap-8 ${isCollapsed ? "w-[80px] items-center" : "w-[300px]"} p-4 border-r transition-all ease-in duration-200 bg-[#f0f4f9]`}>
+        <div className={`h-screen flex flex-col gap-8 ${isCollapsed ? "w-[80px] items-center" : "w-[300px]"} p-4 border-r dark:border-[#1e1f20] transition-all ease-in duration-200 bg-[#f0f4f9] dark:bg-[#1e1f20]`}>
           <div>
-            <button onClick={() => setIsCollapsed(!isCollapsed)} className='hover:bg-slate-200 rounded-full p-2 transition-all ease-in'>
+            <button onClick={() => setIsCollapsed(!isCollapsed)} className='hover:bg-slate-200 dark:hover:bg-[#393b3d] rounded-full p-2 transition-all ease-in'>
               <MenuIcon className='size-8' />
             </button>
           </div>
-          <div className={`${isCollapsed ? "" : "w-[150px]"} p-4 bg-[#dde3ea] rounded-full flex gap-4 items-center text-sm font-semibold cursor-pointer transition-all`}>
+          <div className={`${isCollapsed ? "" : "w-[150px]"} p-4 bg-[#dde3ea] dark:bg-[#393b3d] rounded-full flex gap-4 items-center text-sm font-semibold cursor-pointer transition-all`}>
             <Plus />
             {isCollapsed ? "" : "New Chat"}
           </div>
@@ -39,7 +39,7 @@ const Sidebar = () => {
             <h1 className='text-lg'>Recent Chats</h1>
             <div className='overflow-y-auto'></div>
           </section>
-          <section className={`relative flex items-center text-xl gap-4 p-4 rounded-lg transition-all ${clicked ? "" : "hover:bg-slate-200"}`} onClick={() => setClicked(!clicked)}>
+          <section className={`relative flex items-center text-xl gap-4 p-4 rounded-lg transition-all ${clicked ? "" : "hover:bg-slate-200 dark:hover:bg-[#393b3d]"}`} onClick={() => setClicked(!clicked)}>
             <Settings />
             {isCollapsed ? "" : "Settings"}
             <SettingBox clicked={clicked} />

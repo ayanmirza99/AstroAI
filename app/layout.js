@@ -1,5 +1,6 @@
 import Sidebar from "./components/Sidebar";
 import { GlobalContextProvider } from "./context/context";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 export const metadata = {
@@ -10,10 +11,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex h-screen w-full relative overflow-x-hidden" suppressHydrationWarning>
+      <body
+        className="flex h-screen w-full relative overflow-x-hidden"
+        suppressHydrationWarning
+      >
         <GlobalContextProvider>
-          <Sidebar />
-          {children}
+          <ThemeProvider attribute="class" enableSystem defaultTheme="system">
+            <Sidebar />
+            {children}
+          </ThemeProvider>
         </GlobalContextProvider>
       </body>
     </html>
