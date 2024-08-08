@@ -5,7 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: ['class'],
+  darkMode: ["class"],
   theme: {
     extend: {
       backgroundImage: {
@@ -14,7 +14,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       boxShadow: {
-        'custom': 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+        custom: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
       },
     },
   },

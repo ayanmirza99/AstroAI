@@ -1,5 +1,5 @@
 "use client"
-import { MenuIcon, Plus, Settings } from 'lucide-react'
+import { MenuIcon, MessageSquare, Plus, Settings } from 'lucide-react'
 import React, { useState } from 'react'
 import { useGlobalContext } from '../context/context'
 import SettingBox from './SettingBox'
@@ -7,7 +7,7 @@ import SettingBox from './SettingBox'
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [clicked, setClicked] = useState(false)
-  const { expand, mobileScreen } = useGlobalContext();
+  const { expand, mobileScreen, prevPrompts, recentPrompt, onSent } = useGlobalContext();
   return (
     <>
       {mobileScreen ? (
@@ -15,9 +15,20 @@ const Sidebar = () => {
           <div className={`p-4 bg-[#dde3ea] dark:bg-[#393b3d] rounded-full flex gap-4 items-center text-sm font-semibold cursor-pointer transition-all`}>
             <Plus />New Chat
           </div>
-          <section className={`h-[60%] p-4`}>
-          <h1 className='text-lg'>Recent Chats</h1>
-          <div className='overflow-y-auto'></div>
+          <section className={`h-[70%] p-4 flex flex-col gap-6`}>
+            <h1 className='text-lg'>Recent Chats</h1>
+            <div className='overflow-y-auto flex flex-col gap-2'>
+              {prevPrompts.map((item, key) => {
+                return (
+                  <div className={`w-[98%] py-2 px-4 font-semibold ${item === recentPrompt ? "bg-[#d3e3fd] hover:bg-[#d3e3fd] dark:bg-[#1f75e9] dark:hover:bg-[#1f75e9]" : "hover:bg-slate-200 dark:hover:bg-[#393b3d]"} flex gap-2 rounded-full`} key={key} onClick={() => {
+                    recentPrompt !== item ? onSent(item) : ""
+                  }}>
+                    <MessageSquare />
+                    <h2>{item.slice(0, 25)}</h2>
+                  </div>
+                )
+              })}
+            </div>
           </section>
           <section className={`relative flex items-center text-xl gap-4 p-4 rounded-lg transition-all ${clicked ? "" : "hover:bg-slate-200 dark:hover:bg-[#393b3d]"}`} onClick={() => setClicked(!clicked)}>
             <Settings />Settings
@@ -25,7 +36,7 @@ const Sidebar = () => {
           </section>
         </div>
       ) : (
-        <div className={`h-screen flex flex-col gap-8 ${isCollapsed ? "w-[80px] items-center" : "w-[300px]"} p-4 border-r dark:border-[#1e1f20] transition-all ease-in duration-200 bg-[#f0f4f9] dark:bg-[#1e1f20]`}>
+        <div className={`h-screen flex flex-col gap-8 ${isCollapsed ? "w-[80px] items-center" : "w-[400px]"} p-4 border-r dark:border-[#1e1f20] transition-all ease-in duration-200 bg-[#f0f4f9] dark:bg-[#1e1f20]`}>
           <div>
             <button onClick={() => setIsCollapsed(!isCollapsed)} className='hover:bg-slate-200 dark:hover:bg-[#393b3d] rounded-full p-2 transition-all ease-in'>
               <MenuIcon className='size-8' />
@@ -35,9 +46,20 @@ const Sidebar = () => {
             <Plus />
             {isCollapsed ? "" : "New Chat"}
           </div>
-          <section className={`h-[60%] p-4 ${isCollapsed ? "invisible" : "visible delay-200 duration-500 transition-all ease-in-out"} `}>
-            <h1 className='text-lg'>Recent Chats</h1>
-            <div className='overflow-y-auto'></div>
+          <section className={`h-[70%] py-4 ${isCollapsed ? "invisible" : "visible delay-200 duration-500 transition-all ease-in-out flex flex-col gap-6"} `}>
+            <h1 className='text-lg font-semibold'>Recent Chats</h1>
+            <div className='overflow-y-auto flex flex-col gap-2 scrollbar'>
+              {prevPrompts.map((item, key) => {
+                return (
+                  <div className={`w-[98%] py-2 px-4 font-semibold ${item === recentPrompt ? "bg-[#d3e3fd] hover:bg-[#d3e3fd] dark:bg-[#1f75e9] dark:hover:bg-[#1f75e9]" : "hover:bg-slate-200 dark:hover:bg-[#393b3d]"} flex gap-2 rounded-full`} key={key} onClick={() => {
+                    recentPrompt !== item ? onSent(item) : ""
+                  }}>
+                    <MessageSquare />
+                    <h2>{item.slice(0, 15)}</h2>
+                  </div>
+                )
+              })}
+            </div>
           </section>
           <section className={`relative flex items-center text-xl gap-4 p-4 rounded-lg transition-all ${clicked ? "" : "hover:bg-slate-200 dark:hover:bg-[#393b3d]"}`} onClick={() => setClicked(!clicked)}>
             <Settings />

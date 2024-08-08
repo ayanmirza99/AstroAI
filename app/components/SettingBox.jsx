@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useTheme } from "next-themes";
 
 const SettingBox = ({ clicked }) => {
-    const {resolvedTheme, theme, setTheme } = useTheme();
+    const {resolvedTheme, setTheme } = useTheme();
     const [toggle, setToggle] = useState(false)
     const clickHandler = () => {
         setToggle(!toggle)

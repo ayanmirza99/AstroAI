@@ -1,16 +1,19 @@
 "use client";
 import { Menu, Send, User } from "lucide-react";
-import React, { useState } from "react";
 import { useGlobalContext } from "./context/context";
 
 const page = () => {
-  const [value, setValue] = useState("");
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  const { setExpand, expand, mobileScreen } = useGlobalContext();
+  const {
+    onSent,
+    recentPrompt,
+    loading,
+    resultData,
+    prompt,
+    setPrompt,
+    setExpand,
+    expand,
+    mobileScreen,
+  } = useGlobalContext();
 
   return (
     <>
@@ -33,18 +36,38 @@ const page = () => {
             <User className="" />
           </div>
         </section>
-        <section className="h-[90%] w-full flex items-center justify-center">
-          <div className="h-full w-[90%] md:w-[60%]"></div>
+        <section className="h-full w-full flex items-center justify-center overflow-y-auto">
+          <div className="h-full w-[90%] md:w-[60%]">
+            <div>
+              {loading && (
+                <>
+                  <p>{recentPrompt}</p>
+                  <p>Loading...</p>
+                </>
+              )}
+              {!loading && (
+                <>
+                  <p>{recentPrompt}</p>
+                  <h2 dangerouslySetInnerHTML={{__html: resultData}}></h2>
+                </>
+              )}
+            </div>
+          </div>
         </section>
-        <section className="flex justify-center items-center p-6 text-[1.5rem]">
-          <div className="flex justify-between items-center gap-6 py-4 px-6 bg-[#f0f4f9] w-full lg:w-[60%] text-[1.2rem] sm:text-[1.5rem] dark:bg-[#1e1f20] rounded-full">
+        <section className="flex justify-center items-center p-2 md:p-4 text-[1.5rem]">
+          <div className="flex justify-between items-center gap-6 py-2 md:py-4 px-6 bg-[#f0f4f9] w-full lg:w-[60%] text-[1.2rem] sm:text-[1.5rem] dark:bg-[#1e1f20] rounded-full">
             <textarea
-              className="bg-transparent h-11 w-[90%] outline-none overflow-y-scroll resize-none scrollbar"
+              className="bg-transparent h-10 sm:h-11 w-full outline-none overflow-y-scroll resize-none scrollbar"
               placeholder="Enter a prompt here"
-              value={value}
-              onChange={handleChange}
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
             />
-            <Send />
+            <button
+              disabled={loading || prompt === "" ? true : false}
+              onClick={() => onSent(prompt)}
+            >
+              <Send />
+            </button>
           </div>
         </section>
       </div>
