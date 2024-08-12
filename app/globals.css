@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Heading";
+  src: url("/4UaRrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iq2vgCIhM907w.ttf");
+}
+
+.linear-bg{
+  background: -webkit-linear-gradient(70deg, #4b90ff, #ff5506);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .scrollbar::-webkit-scrollbar {
     width: 4px;
   }
@@ -12,7 +22,10 @@
   }
   @media (width < 768px) {
     .scrollbar::-webkit-scrollbar {
-      width: 2px;
+      width: 1px;
+    }
+    .home-cards-bar::-webkit-scrollbar{
+      display: none;
     }
   }
   

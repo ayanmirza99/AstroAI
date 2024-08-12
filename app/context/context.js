@@ -17,9 +17,11 @@ export const GlobalContextProvider = ({ children }) => {
   const [prevPrompts, setPrevPrompts] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [resultData, setResultData] = useState("");
+  const [resultData, setResultData] = useState([]);
+  const [error, setError] = useState(false);
 
   const onSent = async (prompt) => {
+    setShowResult(true);
     try {
       setPrompt("");
       if (!prevPrompts.includes(prompt)) {
@@ -28,20 +30,16 @@ export const GlobalContextProvider = ({ children }) => {
       setLoading(true);
       setRecentPrompt(prompt);
       const res = await run(prompt);
-      let responseArray = res.split("**");
-      let newResponse;
-      for (let i = 0; i < responseArray.length; i++) {
-        if (i === "0" || i % 2 !== "1") {
-          newResponse += responseArray[i];
-        } else {
-          newResponse += "<h1>" + responseArray[i] + "</h1>";
-        }
-      }
-      let newResponse2 = newResponse.split("*").join("</br></br>");
-      setResultData(newResponse2);
-
+      let responseArray = res.split("\n");
+      let arr = responseArray.map((line) => {
+        return line.replace("**", "");
+      });
+      let arr1 = arr.map((line) => {
+        return line.replace("**", "");
+      });
+      setResultData(arr1);
     } catch (error) {
-      console.error("Error fetching response:", error);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -60,6 +58,7 @@ export const GlobalContextProvider = ({ children }) => {
         showResult,
         setShowResult,
         loading,
+        error,
         setLoading,
         resultData,
         setResultData,
