@@ -73,4 +73,4 @@ For deployment to a production environment, follow the deployment instructions f
 
 Ayan Mirza
 
-LinkedIn: [https://www.linkedin.com/in/ayan-mirza-a0212a277/]
+LinkedIn: https://www.linkedin.com/in/ayan-mirza-a0212a277/
